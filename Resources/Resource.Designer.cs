@@ -356,8 +356,17 @@ namespace XamarinGoogleMapDemo
 			// aapt resource value: 0x7f08000a
 			public const int auto = 2131230730;
 			
+			// aapt resource value: 0x7f080010
+			public const int button1 = 2131230736;
+			
 			// aapt resource value: 0x7f08000b
 			public const int dark = 2131230731;
+			
+			// aapt resource value: 0x7f08000f
+			public const int editEndPoint = 2131230735;
+			
+			// aapt resource value: 0x7f08000e
+			public const int editStartPoint = 2131230734;
 			
 			// aapt resource value: 0x7f080000
 			public const int hybrid = 2131230720;
@@ -368,8 +377,8 @@ namespace XamarinGoogleMapDemo
 			// aapt resource value: 0x7f08000c
 			public const int light = 2131230732;
 			
-			// aapt resource value: 0x7f08000e
-			public const int map = 2131230734;
+			// aapt resource value: 0x7f080012
+			public const int map = 2131230738;
 			
 			// aapt resource value: 0x7f080001
 			public const int none = 2131230721;
@@ -388,6 +397,9 @@ namespace XamarinGoogleMapDemo
 			
 			// aapt resource value: 0x7f080004
 			public const int terrain = 2131230724;
+			
+			// aapt resource value: 0x7f080011
+			public const int textResult = 2131230737;
 			
 			// aapt resource value: 0x7f080009
 			public const int wide = 2131230729;

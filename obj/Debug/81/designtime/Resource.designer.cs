@@ -573,6 +573,9 @@ namespace XamarinGoogleMapDemo
 			// aapt resource value: 0x7F070019
 			public const int book_now = 2131165209;
 			
+			// aapt resource value: 0x7F020005
+			public const int button1 = 2130837509;
+			
 			// aapt resource value: 0x7F070015
 			public const int buyButton = 2131165205;
 			
@@ -599,6 +602,12 @@ namespace XamarinGoogleMapDemo
 			
 			// aapt resource value: 0x7F07001E
 			public const int donate_with_google = 2131165214;
+			
+			// aapt resource value: 0x7F020004
+			public const int editEndPoint = 2130837508;
+			
+			// aapt resource value: 0x7F020003
+			public const int editStartPoint = 2130837507;
 			
 			// aapt resource value: 0x7F070024
 			public const int google_wallet_classic = 2131165220;
@@ -630,8 +639,8 @@ namespace XamarinGoogleMapDemo
 			// aapt resource value: 0x7F07001F
 			public const int logo_only = 2131165215;
 			
-			// aapt resource value: 0x7F020003
-			public const int map = 2130837507;
+			// aapt resource value: 0x7F020007
+			public const int map = 2130837511;
 			
 			// aapt resource value: 0x7F070017
 			public const int match_parent = 2131165207;
@@ -698,6 +707,9 @@ namespace XamarinGoogleMapDemo
 			
 			// aapt resource value: 0x7F070014
 			public const int test = 2131165204;
+			
+			// aapt resource value: 0x7F020006
+			public const int textResult = 2130837510;
 			
 			// aapt resource value: 0x7F07000B
 			public const int wide = 2131165195;
