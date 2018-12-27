@@ -2,26 +2,30 @@
 using Android.Widget;
 using Android.OS;
 using Android.Gms.Maps;
-using System;
 using Android.Gms.Maps.Model;
 using Android.Locations;
 using Android.Runtime;
 using Android.Content;
 using Android.Graphics;
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace XamarinGoogleMapDemo
 {
     [Activity(Label = "XamarinGoogleMapDemo", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity,IOnMapReadyCallback, ILocationListener, GoogleMap.IOnInfoWindowClickListener
+    public class MainActivity : Activity,IOnMapReadyCallback, ILocationListener
     {
         GoogleMap map;
         Spinner spinner;
         LocationManager locationManager;
         String provider;
+        LatLng latLngSource;
+        LatLng latLngDestination;
 
         //Giai ma code
         private List<LatLng> DecodePolyline(string encodedPoints)
@@ -84,8 +88,7 @@ namespace XamarinGoogleMapDemo
 
             return poly;
         }
-        
-
+    
         public void OnMapReady(GoogleMap googleMap)
         {
             map = googleMap;
@@ -96,19 +99,7 @@ namespace XamarinGoogleMapDemo
             googleMap.MoveCamera(CameraUpdateFactory.ZoomIn());
             googleMap.UiSettings.MyLocationButtonEnabled = true;
         }
-
-        public async void GetRawData(string textBox)
-        {
-            // Use https to satisfy iOS ATS requirements.
-            var client = new HttpClient();
-            var response = await client.GetAsync("https://maps.googleapis.com/maps/api/directions/json?" +
-                "origin=Hai%20Chau%20Da%20Nang"
-                +"&destination=Thanh%20Khe%20Da%20Nang"
-                + "&key=AIzaSyDPAaZp3Xj9LggTsweR2twzeh3zP4j58pE");
-            var responseString = await response.Content.ReadAsStringAsync();
-            var JsonObject = JsonConvert.DeserializeObject(responseString);
-            textBox = responseString;
-        }
+        
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -121,39 +112,38 @@ namespace XamarinGoogleMapDemo
             mapFragment.GetMapAsync(this);
 
             spinner.ItemSelected += Spinner_ItemSelected;
-
             spinner.ItemSelected += Spinner_ItemSelected;
-
             locationManager = (LocationManager)GetSystemService(Context.LocationService);
             provider = locationManager.GetBestProvider(new Criteria(), false);
-
             Location location = locationManager.GetLastKnownLocation(provider);
             if (location == null)
                 System.Diagnostics.Debug.WriteLine("No Location");
 
-            List<LatLng> lines = DecodePolyline("yf}`Bk|osS}E\\kBFo@UEEOCMFCNDLDB@?FjBNxAH~@z@xMh@~Hl@|GNtCHbAGXUr@wDnHcDxFY\\_@\\I@OBUNINkBNwBXgCTiHf@k@D}BXuAd@yAp@k@d@_@`@Uf@CAEAQAQDONCLAR@BKLU`@OPg@^eAn@SH_Cn@q@Na@PCCEEOCOBKNAH?BYLuE`ByD|AcJ|EsBx@_JxCoBt@o@n@@^@tBFzEP|@D~BHxEExGKhFIpDE~FSrIEvBC`E@tCT|GlCAXbJ`Bi@bAo@NGKi@?E?CDE@G");
+            FnProcessOnMap();
 
-            var polylineOptions = new PolylineOptions()
-                            .InvokeColor(Android.Graphics.Color.Blue)
-                            .InvokeWidth(4);
+            //List<LatLng> lines = DecodePolyline("yf}`Bk|osS}E\\kBFo@UEEOCMFCNDLDB@?FjBNxAH~@z@xMh@~Hl@|GNtCHbAGXUr@wDnHcDxFY\\_@\\I@OBUNINkBNwBXgCTiHf@k@D}BXuAd@yAp@k@d@_@`@Uf@CAEAQAQDONCLAR@BKLU`@OPg@^eAn@SH_Cn@q@Na@PCCEEOCOBKNAH?BYLuE`ByD|AcJ|EsBx@_JxCoBt@o@n@@^@tBFzEP|@D~BHxEExGKhFIpDE~FSrIEvBC`E@tCT|GlCAXbJ`Bi@bAo@NGKi@?E?CDE@G");
 
-            foreach (LatLng line in lines)
-            {
-                polylineOptions.Add(line);
-            }
+            //var polylineOptions = new PolylineOptions()
+            //                .InvokeColor(Android.Graphics.Color.Blue)
+            //                .InvokeWidth(4);
 
-            var editStartPoint = FindViewById<EditText>(Resource.Id.editStartPoint);
-            var editEndPoint = FindViewById<EditText>(Resource.Id.editEndPoint);
-            var btnFindPath = FindViewById<Button>(Resource.Id.button1);
-            var txtResult = FindViewById<TextView>(Resource.Id.textResult);
+            //foreach (LatLng line in lines)
+            //{
+            //    polylineOptions.Add(line);
+            //}
 
-            btnFindPath.Click += (e, o) =>
-            {
-                map.AddPolyline(polylineOptions);
-            };
+            //var editStartPoint = FindViewById<EditText>(Resource.Id.editStartPoint);
+            //var editEndPoint = FindViewById<EditText>(Resource.Id.editEndPoint);
+            //var btnFindPath = FindViewById<Button>(Resource.Id.button1);
+            //var txtResult = FindViewById<TextView>(Resource.Id.textResult);
+
+            //btnFindPath.Click += (e, o) =>
+            //{
+            //    map.AddPolyline(polylineOptions);
+            //};
 
         }
-
+        
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             switch (e.Position)
@@ -179,6 +169,160 @@ namespace XamarinGoogleMapDemo
             }
         }
 
+        async void FnProcessOnMap()
+        {
+            await FnLocationToLatLng();
+            
+            var editStartPoint = FindViewById<EditText>(Resource.Id.editStartPoint);
+            var editEndPoint = FindViewById<EditText>(Resource.Id.editEndPoint);
+            var btnFindPath = FindViewById<Button>(Resource.Id.button1);
+            var txtResult = FindViewById<TextView>(Resource.Id.textResult);
+
+            btnFindPath.Click += (e, o) =>
+            {
+                if (latLngSource != null && latLngDestination != null)
+                    FnDrawPath(Constants.strSourceLocation, Constants.strDestinationLocation);
+                txtResult.Text = editStartPoint.Text + "_" + editStartPoint.Text;
+            };
+        }
+
+        void MarkOnMap(string title, LatLng pos)
+        {
+            RunOnUiThread(() =>
+            {
+                try
+                {
+                    var marker = new MarkerOptions();
+                    marker.SetTitle(title);
+                    marker.SetPosition(pos); //Resource.Drawable.BlueDot
+                    map.AddMarker(marker);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            });
+        }
+
+        async void FnDrawPath(string strSource, string strDestination)
+        {
+            string strFullDirectionURL = string.Format(Constants.strGoogleDirectionUrl, strSource, strDestination);
+            string strJSONDirectionResponse = await FnHttpRequest(strFullDirectionURL);
+            if (strJSONDirectionResponse != Constants.strException)
+            {
+                RunOnUiThread(() =>
+                {
+                    if (map != null)
+                    {
+                        map.Clear();
+                        MarkOnMap(Constants.strTextSource, latLngSource);
+                        MarkOnMap(Constants.strTextDestination, latLngDestination);
+                    }
+                });
+                FnSetDirectionQuery(strJSONDirectionResponse);
+            }
+            else
+            {
+                RunOnUiThread(() =>
+                   Toast.MakeText(this, Constants.strUnableToConnect, ToastLength.Short).Show());
+            }
+        }
+
+        void FnSetDirectionQuery(string strJSONDirectionResponse)
+        {
+            var objRoutes = JsonConvert.DeserializeObject<GoogleDirectionClass>(strJSONDirectionResponse);
+            //objRoutes.routes.Count  --may be more then one 
+            if (objRoutes.routes.Count > 0)
+            {
+                string encodedPoints = objRoutes.routes[0].overview_polyline.points;
+
+                var lstDecodedPoints = DecodePolyline(encodedPoints);
+                //convert list of location point to array of latlng type
+                var latLngPoints = new LatLng[lstDecodedPoints.Count];
+                int index = 0;
+                //foreach (Location loc in lstDecodedPoints)
+                //{
+                //    latLngPoints[index++] = new LatLng(loc.lat, loc.lng);
+                //}
+
+                var polylineOptions = new PolylineOptions();
+                polylineOptions.InvokeColor(Android.Graphics.Color.Blue);
+                polylineOptions.InvokeWidth(4);
+                polylineOptions.Geodesic(true);
+
+                foreach (LatLng line in lstDecodedPoints)
+                {
+                    polylineOptions.Add(line);
+                }
+
+                map.AddPolyline(polylineOptions);
+
+                //var polylineoption = new PolylineOptions();
+                //polylineoption.InvokeColor(Android.Graphics.Color.Red);
+                //polylineoption.Geodesic(true);
+                //polylineoption.Add(latLngPoints);
+                //RunOnUiThread(() =>
+            }
+        }
+
+        //async FnGeoCodeApi()
+        //{
+        //    string strGeoCode = string.Format("address={0}", "Silicon Valley,CA,USA");
+        //    string strGeoCodeFullURL = string.Format(Constants.strGeoCodingUrl, strGeoCode);
+        //    string strResult = await FnHttpRequest(strGeoCodeFullURL);
+        //    if (strResult != Constants.strException)
+        //    {
+
+        //        var objGeoCodeClass = JsonConvert.DeserializeObject<GoogleGeoCodeClass>(strResult);
+        //        if (objGeoCodeClass.status == "OK")
+        //        {
+        //            var Position = new LatLng(objGeoCodeClass.results[0].geometry.location.lat, objGeoCodeClass.results[0].geometry.location.lng);
+        //            string address = objGeoCodeClass.results[0].formatted_address;
+        //        }
+        //    }
+        //}
+
+        async Task<bool> FnLocationToLatLng()
+        {
+            try
+            {
+                //var geo = new Geocoder(this);
+                //var sourceAddress = await geo.GetFromLocationNameAsync(Constants.strSourceLocation, 1);
+                //sourceAddress.ToList().ForEach((addr) =>
+                //{
+                //    latLngSource = new LatLng(addr.Latitude, addr.Longitude);
+                //});
+
+                //var destAddress = await geo.GetFromLocationNameAsync(Constants.strDestinationLocation, 1);
+                //destAddress.ToList().ForEach((addr) =>
+                //{
+                //    latLngDestination = new LatLng(addr.Latitude, addr.Longitude);
+                //});
+
+                latLngSource = new LatLng(16.062359, 108.179782);
+                latLngDestination = new LatLng(16.051582, 108.209823);
+                
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+            //using google geocode api to convert location to latlng 
+
+            //string strGeoCode = string.Format("address={0}", strLocation);
+            //string strGeoCodeFullURL = string.Format(Constants.strGeoCodingUrl, strGeoCode);
+
+            //string strResult = FnHttpRequestOnMainThread(strGeoCodeFullURL);
+            //if (strResult != Constants.strException)
+            //{
+            //    var objGeoCodeJSONClass = JsonConvert.DeserializeObject<GeoCodeJSONClass>(strResult);
+            //    Position = new LatLng(objGeoCodeJSONClass.results[0].geometry.location.lat, objGeoCodeJSONClass.results[0].geometry.location.lng);
+            //}
+
+        }
+
         protected override void OnResume()
         {
             base.OnResume();
@@ -189,26 +333,6 @@ namespace XamarinGoogleMapDemo
         {
             base.OnPause();
             locationManager.RemoveUpdates(this);
-        }
-
-        public void OnLocationChanged(Location location)
-        {
-            Double lat, lng;
-            lat = 16.0660217;
-            lng = 108.2210158;
-
-            MarkerOptions makerOptions = new MarkerOptions();
-            makerOptions.SetPosition(new LatLng(lat, lng));
-            makerOptions.SetTitle("My Position");
-            map.AddMarker(makerOptions);
-        
-            //Move Camera
-            CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
-            builder.Target(new LatLng(lat, lng));
-            CameraPosition cameraPosition = builder.Build();
-            CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(cameraPosition);
-            map.MoveCamera(cameraUpdate);
-            map.MyLocationEnabled = true;
         }
 
         public void OnProviderDisabled(string provider)
@@ -229,6 +353,53 @@ namespace XamarinGoogleMapDemo
         public void OnInfoWindowClick(Marker marker)
         {
             Toast.MakeText(this, $"Icon {marker.Title} is clicked", ToastLength.Short).Show();
+        }
+
+        WebClient webclient;
+        async Task<string> FnHttpRequest(string strUri)
+        {
+            webclient = new WebClient();
+            string strResultData;
+            try
+            {
+                strResultData = await webclient.DownloadStringTaskAsync(new Uri(strUri));
+                Console.WriteLine(strResultData);
+            }
+            catch
+            {
+                strResultData = "Exception";
+            }
+            finally
+            {
+                if (webclient != null)
+                {
+                    webclient.Dispose();
+                    webclient = null;
+                }
+            }
+
+            return strResultData;
+        }
+
+        public void OnLocationChanged(Location location)
+        {
+            Double lat, lng;
+            lat = 16.0660217;
+            lng = 108.2210158;
+
+            MarkerOptions makerOptions = new MarkerOptions();
+            makerOptions.SetPosition(new LatLng(lat, lng));
+            makerOptions.SetTitle("My Position");
+            map.AddMarker(makerOptions);
+
+            //Move Camera
+            CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
+            builder.Target(new LatLng(lat, lng));
+            builder.Zoom(12);
+            CameraPosition cameraPosition = builder.Build();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(cameraPosition);
+            map.MoveCamera(cameraUpdate);
+            map.MyLocationEnabled = true;
         }
     }
 }

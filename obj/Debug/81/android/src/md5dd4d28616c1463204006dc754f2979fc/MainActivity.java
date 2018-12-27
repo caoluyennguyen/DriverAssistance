@@ -6,8 +6,7 @@ public class MainActivity
 	implements
 		mono.android.IGCUserPeer,
 		com.google.android.gms.maps.OnMapReadyCallback,
-		android.location.LocationListener,
-		com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
+		android.location.LocationListener
 {
 /** @hide */
 	public static final String __md_methods;
@@ -21,7 +20,6 @@ public class MainActivity
 			"n_onProviderDisabled:(Ljava/lang/String;)V:GetOnProviderDisabled_Ljava_lang_String_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
 			"n_onProviderEnabled:(Ljava/lang/String;)V:GetOnProviderEnabled_Ljava_lang_String_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
 			"n_onStatusChanged:(Ljava/lang/String;ILandroid/os/Bundle;)V:GetOnStatusChanged_Ljava_lang_String_ILandroid_os_Bundle_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
-			"n_onInfoWindowClick:(Lcom/google/android/gms/maps/model/Marker;)V:GetOnInfoWindowClick_Lcom_google_android_gms_maps_model_Marker_Handler:Android.Gms.Maps.GoogleMap/IOnInfoWindowClickListenerInvoker, Xamarin.GooglePlayServices.Maps\n" +
 			"";
 		mono.android.Runtime.register ("XamarinGoogleMapDemo.MainActivity, XamarinGoogleMapDemo", MainActivity.class, __md_methods);
 	}
@@ -97,14 +95,6 @@ public class MainActivity
 	}
 
 	private native void n_onStatusChanged (java.lang.String p0, int p1, android.os.Bundle p2);
-
-
-	public void onInfoWindowClick (com.google.android.gms.maps.model.Marker p0)
-	{
-		n_onInfoWindowClick (p0);
-	}
-
-	private native void n_onInfoWindowClick (com.google.android.gms.maps.model.Marker p0);
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
