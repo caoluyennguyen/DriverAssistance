@@ -12,7 +12,7 @@
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-feature android:glEsVersion="0x00020000" android:required="true" />
   <application android:label="XamarinGoogleMapDemo" android:name="android.app.Application" android:allowBackup="true" android:icon="@drawable/icon" android:debuggable="true">
-    <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="@string/GoogleKey" />
+    <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDPAaZp3Xj9LggTsweR2twzeh3zP4j58pE" />
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     <activity android:icon="@drawable/icon" android:label="XamarinGoogleMapDemo" android:name="md5dd4d28616c1463204006dc754f2979fc.MainActivity">
       <intent-filter>

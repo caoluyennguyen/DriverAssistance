@@ -26,6 +26,7 @@ namespace XamarinGoogleMapDemo
         String provider;
         LatLng latLngSource;
         LatLng latLngDestination;
+        String polyline;
 
         //Giai ma code
         private List<LatLng> DecodePolyline(string encodedPoints)
@@ -88,7 +89,7 @@ namespace XamarinGoogleMapDemo
 
             return poly;
         }
-    
+
         public void OnMapReady(GoogleMap googleMap)
         {
             map = googleMap;
@@ -100,7 +101,6 @@ namespace XamarinGoogleMapDemo
             googleMap.UiSettings.MyLocationButtonEnabled = true;
         }
         
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -118,10 +118,11 @@ namespace XamarinGoogleMapDemo
             Location location = locationManager.GetLastKnownLocation(provider);
             if (location == null)
                 System.Diagnostics.Debug.WriteLine("No Location");
-
+            
             FnProcessOnMap();
 
-            //List<LatLng> lines = DecodePolyline("yf}`Bk|osS}E\\kBFo@UEEOCMFCNDLDB@?FjBNxAH~@z@xMh@~Hl@|GNtCHbAGXUr@wDnHcDxFY\\_@\\I@OBUNINkBNwBXgCTiHf@k@D}BXuAd@yAp@k@d@_@`@Uf@CAEAQAQDONCLAR@BKLU`@OPg@^eAn@SH_Cn@q@Na@PCCEEOCOBKNAH?BYLuE`ByD|AcJ|EsBx@_JxCoBt@o@n@@^@tBFzEP|@D~BHxEExGKhFIpDE~FSrIEvBC`E@tCT|GlCAXbJ`Bi@bAo@NGKi@?E?CDE@G");
+            //List<LatLng> lines =
+            //    DecodePolyline("yf}`Bk|osS}E\\kBFo@UEEOCMFCNDLDB@?FjBNxAH~@z@xMh@~Hl@|GNtCHbAGXUr@wDnHcDxFY\\_@\\I@OBUNINkBNwBXgCTiHf@k@D}BXuAd@yAp@k@d@_@`@Uf@CAEAQAQDONCLAR@BKLU`@OPg@^eAn@SH_Cn@q@Na@PCCEEOCOBKNAH?BYLuE`ByD|AcJ|EsBx@_JxCoBt@o@n@@^@tBFzEP|@D~BHxEExGKhFIpDE~FSrIEvBC`E@tCT|GlCAXbJ`Bi@bAo@NGKi@?E?CDE@G");
 
             //var polylineOptions = new PolylineOptions()
             //                .InvokeColor(Android.Graphics.Color.Blue)
@@ -143,7 +144,7 @@ namespace XamarinGoogleMapDemo
             //};
 
         }
-        
+
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             switch (e.Position)
@@ -172,17 +173,27 @@ namespace XamarinGoogleMapDemo
         async void FnProcessOnMap()
         {
             await FnLocationToLatLng();
-            
+
             var editStartPoint = FindViewById<EditText>(Resource.Id.editStartPoint);
             var editEndPoint = FindViewById<EditText>(Resource.Id.editEndPoint);
             var btnFindPath = FindViewById<Button>(Resource.Id.button1);
             var txtResult = FindViewById<TextView>(Resource.Id.textResult);
 
+            editStartPoint.Text = "Thanh Khe, Da Nang, Viet Nam";
+            editEndPoint.Text = "Hai Chau, Da Nang, Viet Nam";
+
             btnFindPath.Click += (e, o) =>
             {
+                Constants.strSourceLocation = editStartPoint.Text;
+                Constants.strDestinationLocation = editEndPoint.Text;
+
                 if (latLngSource != null && latLngDestination != null)
+                {
                     FnDrawPath(Constants.strSourceLocation, Constants.strDestinationLocation);
-                txtResult.Text = editStartPoint.Text + "_" + editStartPoint.Text;
+                    //FnDrawPath(sourceLocation, destinationLocation);
+                    txtResult.Text = Constants.strSourceLocation + "_" + Constants.strDestinationLocation;
+                }
+                    
             };
         }
 
@@ -230,97 +241,57 @@ namespace XamarinGoogleMapDemo
 
         void FnSetDirectionQuery(string strJSONDirectionResponse)
         {
+            //var txtResult = FindViewById<TextView>(Resource.Id.textResult);
+
             var objRoutes = JsonConvert.DeserializeObject<GoogleDirectionClass>(strJSONDirectionResponse);
+
             //objRoutes.routes.Count  --may be more then one 
-            if (objRoutes.routes.Count > 0)
+            //if (objRoutes.routes.Count != 0)
+            if (true)
             {
-                string encodedPoints = objRoutes.routes[0].overview_polyline.points;
-
-                var lstDecodedPoints = DecodePolyline(encodedPoints);
-                //convert list of location point to array of latlng type
-                var latLngPoints = new LatLng[lstDecodedPoints.Count];
-                int index = 0;
-                //foreach (Location loc in lstDecodedPoints)
-                //{
-                //    latLngPoints[index++] = new LatLng(loc.lat, loc.lng);
-                //}
-
+                //string encodedPoints = objRoutes.routes[0].overview_polyline.points;
+                //List<LatLng> lstDecodedPoints = DecodePolyline(encodedPoints);
+                List<LatLng> lstDecodedPoints = DecodePolyline("yf}`Bk|osS}E\\kBFo@UEEOCMFCNDLDB@?FjBNxAH~@z@xMh@~Hl@|GNtCHbAGXUr@wDnHcDxFY\\_@\\I@OBUNINkBNwBXgCTiHf@k@D}BXuAd@yAp@k@d@_@`@Uf@CAEAQAQDONCLAR@BKLU`@OPg@^eAn@SH_Cn@q@Na@PCCEEOCOBKNAH?BYLuE`ByD|AcJ|EsBx@_JxCoBt@o@n@@^@tBFzEP|@D~BHxEExGKhFIpDE~FSrIEvBC`E@tCT|GlCAXbJ`Bi@bAo@NGKi@?E?CDE@G");
+               
                 var polylineOptions = new PolylineOptions();
-                polylineOptions.InvokeColor(Android.Graphics.Color.Blue);
+                polylineOptions = new PolylineOptions();
+                polylineOptions.InvokeColor(Android.Graphics.Color.Red);
                 polylineOptions.InvokeWidth(4);
-                polylineOptions.Geodesic(true);
-
+                
                 foreach (LatLng line in lstDecodedPoints)
                 {
                     polylineOptions.Add(line);
                 }
 
                 map.AddPolyline(polylineOptions);
-
-                //var polylineoption = new PolylineOptions();
-                //polylineoption.InvokeColor(Android.Graphics.Color.Red);
-                //polylineoption.Geodesic(true);
-                //polylineoption.Add(latLngPoints);
-                //RunOnUiThread(() =>
             }
         }
-
-        //async FnGeoCodeApi()
-        //{
-        //    string strGeoCode = string.Format("address={0}", "Silicon Valley,CA,USA");
-        //    string strGeoCodeFullURL = string.Format(Constants.strGeoCodingUrl, strGeoCode);
-        //    string strResult = await FnHttpRequest(strGeoCodeFullURL);
-        //    if (strResult != Constants.strException)
-        //    {
-
-        //        var objGeoCodeClass = JsonConvert.DeserializeObject<GoogleGeoCodeClass>(strResult);
-        //        if (objGeoCodeClass.status == "OK")
-        //        {
-        //            var Position = new LatLng(objGeoCodeClass.results[0].geometry.location.lat, objGeoCodeClass.results[0].geometry.location.lng);
-        //            string address = objGeoCodeClass.results[0].formatted_address;
-        //        }
-        //    }
-        //}
 
         async Task<bool> FnLocationToLatLng()
         {
             try
             {
-                //var geo = new Geocoder(this);
+                var geo = new Geocoder(this);
                 //var sourceAddress = await geo.GetFromLocationNameAsync(Constants.strSourceLocation, 1);
-                //sourceAddress.ToList().ForEach((addr) =>
-                //{
-                //    latLngSource = new LatLng(addr.Latitude, addr.Longitude);
-                //});
+                var sourceAddress = await geo.GetFromLocationNameAsync(Constants.strSourceLocation, 1);
+                sourceAddress.ToList().ForEach((addr) =>
+                {
+                    latLngSource = new LatLng(addr.Latitude, addr.Longitude);
+                });
 
                 //var destAddress = await geo.GetFromLocationNameAsync(Constants.strDestinationLocation, 1);
-                //destAddress.ToList().ForEach((addr) =>
-                //{
-                //    latLngDestination = new LatLng(addr.Latitude, addr.Longitude);
-                //});
+                var destAddress = await geo.GetFromLocationNameAsync(Constants.strDestinationLocation, 1);
+                destAddress.ToList().ForEach((addr) =>
+                {
+                    latLngDestination = new LatLng(addr.Latitude, addr.Longitude);
+                });
 
-                latLngSource = new LatLng(16.062359, 108.179782);
-                latLngDestination = new LatLng(16.051582, 108.209823);
-                
                 return true;
             }
             catch
             {
                 return false;
             }
-
-            //using google geocode api to convert location to latlng 
-
-            //string strGeoCode = string.Format("address={0}", strLocation);
-            //string strGeoCodeFullURL = string.Format(Constants.strGeoCodingUrl, strGeoCode);
-
-            //string strResult = FnHttpRequestOnMainThread(strGeoCodeFullURL);
-            //if (strResult != Constants.strException)
-            //{
-            //    var objGeoCodeJSONClass = JsonConvert.DeserializeObject<GeoCodeJSONClass>(strResult);
-            //    Position = new LatLng(objGeoCodeJSONClass.results[0].geometry.location.lat, objGeoCodeJSONClass.results[0].geometry.location.lng);
-            //}
-
         }
 
         protected override void OnResume()
@@ -401,6 +372,33 @@ namespace XamarinGoogleMapDemo
             map.MoveCamera(cameraUpdate);
             map.MyLocationEnabled = true;
         }
+
+        string FnHttpRequestOnMainThread(string strUri)
+        {
+            webclient = new WebClient();
+            string strResultData;
+            try
+            {
+                strResultData = webclient.DownloadString(new Uri(strUri));
+                Console.WriteLine(strResultData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                strResultData = Constants.strException;
+            }
+            finally
+            {
+                if (webclient != null)
+                {
+                    webclient.Dispose();
+                    webclient = null;
+                }
+            }
+
+            return strResultData;
+        }
     }
+    
 }
 

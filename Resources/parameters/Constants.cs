@@ -7,7 +7,7 @@ namespace XamarinGoogleMapDemo
         internal static string strGoogleServerKey = "AIzaSyB8msqEz_2QmVmOcxJXDdmR4cHmOmMgSdw";
         ///static string strGoogleServerDirKey = "A*********xe1Tc8-_t6Dq6CocGdb9nN-bc08CE";
         internal static string strGoogleDirectionUrl = "https://maps.googleapis.com/maps/api/directions/json?origin={0}&destination={1}&key=" + strGoogleServerKey + "";
-        internal static string strGeoCodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?{0}&key=" + strGoogleServerKey + "";
+        //internal static string strGeoCodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?{0}&key=" + strGoogleServerKey + "";
         internal static string strSourceLocation = "Thanh Khe, Da Nang, Viet Nam";
         internal static string strDestinationLocation = "Hai Chau, Da Nang, Viet Nam";
 
