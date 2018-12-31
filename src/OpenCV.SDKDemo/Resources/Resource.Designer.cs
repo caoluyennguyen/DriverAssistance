@@ -451,23 +451,23 @@ namespace OpenCV.SDKDemo
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f0b002d
+			public const int action0 = 2131427373;
+			
 			// aapt resource value: 0x7f0b002a
-			public const int action0 = 2131427370;
+			public const int action_container = 2131427370;
 			
-			// aapt resource value: 0x7f0b0027
-			public const int action_container = 2131427367;
+			// aapt resource value: 0x7f0b0031
+			public const int action_divider = 2131427377;
 			
-			// aapt resource value: 0x7f0b002e
-			public const int action_divider = 2131427374;
+			// aapt resource value: 0x7f0b002b
+			public const int action_image = 2131427371;
 			
-			// aapt resource value: 0x7f0b0028
-			public const int action_image = 2131427368;
+			// aapt resource value: 0x7f0b002c
+			public const int action_text = 2131427372;
 			
-			// aapt resource value: 0x7f0b0029
-			public const int action_text = 2131427369;
-			
-			// aapt resource value: 0x7f0b0038
-			public const int actions = 2131427384;
+			// aapt resource value: 0x7f0b003b
+			public const int actions = 2131427387;
 			
 			// aapt resource value: 0x7f0b000a
 			public const int adjust_height = 2131427338;
@@ -490,50 +490,59 @@ namespace OpenCV.SDKDemo
 			// aapt resource value: 0x7f0b0013
 			public const int blocking = 2131427347;
 			
-			// aapt resource value: 0x7f0b003d
-			public const int calibrate = 2131427389;
+			// aapt resource value: 0x7f0b001d
+			public const int button1 = 2131427357;
 			
-			// aapt resource value: 0x7f0b003f
-			public const int calibration = 2131427391;
+			// aapt resource value: 0x7f0b0040
+			public const int calibrate = 2131427392;
 			
-			// aapt resource value: 0x7f0b0025
-			public const int cameraCalibration = 2131427365;
+			// aapt resource value: 0x7f0b0042
+			public const int calibration = 2131427394;
 			
-			// aapt resource value: 0x7f0b0021
-			public const int cameraControl = 2131427361;
+			// aapt resource value: 0x7f0b0028
+			public const int cameraCalibration = 2131427368;
 			
-			// aapt resource value: 0x7f0b001f
-			public const int cameraPreview = 2131427359;
+			// aapt resource value: 0x7f0b0024
+			public const int cameraControl = 2131427364;
+			
+			// aapt resource value: 0x7f0b0022
+			public const int cameraPreview = 2131427362;
 			
 			// aapt resource value: 0x7f0b0019
 			public const int camera_calibration_java_surface_view = 2131427353;
 			
-			// aapt resource value: 0x7f0b002b
-			public const int cancel_action = 2131427371;
+			// aapt resource value: 0x7f0b002e
+			public const int cancel_action = 2131427374;
 			
-			// aapt resource value: 0x7f0b0033
-			public const int chronometer = 2131427379;
+			// aapt resource value: 0x7f0b0036
+			public const int chronometer = 2131427382;
 			
-			// aapt resource value: 0x7f0b0024
-			public const int colorBlobDetection = 2131427364;
+			// aapt resource value: 0x7f0b0027
+			public const int colorBlobDetection = 2131427367;
 			
-			// aapt resource value: 0x7f0b001c
-			public const int color_blob_detection_activity_surface_view = 2131427356;
+			// aapt resource value: 0x7f0b001f
+			public const int color_blob_detection_activity_surface_view = 2131427359;
 			
-			// aapt resource value: 0x7f0b0041
-			public const int comparison = 2131427393;
+			// aapt resource value: 0x7f0b0044
+			public const int comparison = 2131427396;
 			
 			// aapt resource value: 0x7f0b0010
 			public const int dark = 2131427344;
 			
-			// aapt resource value: 0x7f0b003a
-			public const int end_padder = 2131427386;
+			// aapt resource value: 0x7f0b001c
+			public const int editEndPoint = 2131427356;
 			
-			// aapt resource value: 0x7f0b0023
-			public const int faceDetection = 2131427363;
+			// aapt resource value: 0x7f0b001b
+			public const int editStartPoint = 2131427355;
 			
-			// aapt resource value: 0x7f0b001d
-			public const int fd_activity_surface_view = 2131427357;
+			// aapt resource value: 0x7f0b003d
+			public const int end_padder = 2131427389;
+			
+			// aapt resource value: 0x7f0b0026
+			public const int faceDetection = 2131427366;
+			
+			// aapt resource value: 0x7f0b0020
+			public const int fd_activity_surface_view = 2131427360;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int forever = 2131427348;
@@ -544,23 +553,23 @@ namespace OpenCV.SDKDemo
 			// aapt resource value: 0x7f0b0005
 			public const int hybrid = 2131427333;
 			
-			// aapt resource value: 0x7f0b0035
-			public const int icon = 2131427381;
+			// aapt resource value: 0x7f0b0038
+			public const int icon = 2131427384;
 			
-			// aapt resource value: 0x7f0b0039
-			public const int icon_group = 2131427385;
+			// aapt resource value: 0x7f0b003c
+			public const int icon_group = 2131427388;
 			
 			// aapt resource value: 0x7f0b000c
 			public const int icon_only = 2131427340;
 			
-			// aapt resource value: 0x7f0b0022
-			public const int imageManipulations = 2131427362;
+			// aapt resource value: 0x7f0b0025
+			public const int imageManipulations = 2131427365;
 			
-			// aapt resource value: 0x7f0b001e
-			public const int image_manipulations_activity_surface_view = 2131427358;
+			// aapt resource value: 0x7f0b0021
+			public const int image_manipulations_activity_surface_view = 2131427361;
 			
-			// aapt resource value: 0x7f0b0034
-			public const int info = 2131427380;
+			// aapt resource value: 0x7f0b0037
+			public const int info = 2131427383;
 			
 			// aapt resource value: 0x7f0b0015
 			public const int italic = 2131427349;
@@ -574,14 +583,14 @@ namespace OpenCV.SDKDemo
 			// aapt resource value: 0x7f0b0001
 			public const int line3 = 2131427329;
 			
-			// aapt resource value: 0x7f0b001b
-			public const int map = 2131427355;
+			// aapt resource value: 0x7f0b001e
+			public const int map = 2131427358;
 			
-			// aapt resource value: 0x7f0b002d
-			public const int media_actions = 2131427373;
+			// aapt resource value: 0x7f0b0030
+			public const int media_actions = 2131427376;
 			
-			// aapt resource value: 0x7f0b0020
-			public const int mixedProcessing = 2131427360;
+			// aapt resource value: 0x7f0b0023
+			public const int mixedProcessing = 2131427363;
 			
 			// aapt resource value: 0x7f0b0006
 			public const int none = 2131427334;
@@ -589,26 +598,26 @@ namespace OpenCV.SDKDemo
 			// aapt resource value: 0x7f0b0007
 			public const int normal = 2131427335;
 			
-			// aapt resource value: 0x7f0b0037
-			public const int notification_background = 2131427383;
+			// aapt resource value: 0x7f0b003a
+			public const int notification_background = 2131427386;
 			
-			// aapt resource value: 0x7f0b0030
-			public const int notification_main_column = 2131427376;
+			// aapt resource value: 0x7f0b0033
+			public const int notification_main_column = 2131427379;
 			
-			// aapt resource value: 0x7f0b002f
-			public const int notification_main_column_container = 2131427375;
+			// aapt resource value: 0x7f0b0032
+			public const int notification_main_column_container = 2131427378;
 			
-			// aapt resource value: 0x7f0b003e
-			public const int preview_mode = 2131427390;
+			// aapt resource value: 0x7f0b0041
+			public const int preview_mode = 2131427393;
 			
-			// aapt resource value: 0x7f0b0026
-			public const int puzzle = 2131427366;
+			// aapt resource value: 0x7f0b0029
+			public const int puzzle = 2131427369;
 			
-			// aapt resource value: 0x7f0b0036
-			public const int right_icon = 2131427382;
+			// aapt resource value: 0x7f0b0039
+			public const int right_icon = 2131427385;
 			
-			// aapt resource value: 0x7f0b0031
-			public const int right_side = 2131427377;
+			// aapt resource value: 0x7f0b0034
+			public const int right_side = 2131427380;
 			
 			// aapt resource value: 0x7f0b0008
 			public const int satellite = 2131427336;
@@ -619,8 +628,8 @@ namespace OpenCV.SDKDemo
 			// aapt resource value: 0x7f0b000d
 			public const int standard = 2131427341;
 			
-			// aapt resource value: 0x7f0b002c
-			public const int status_bar_latest_event_content = 2131427372;
+			// aapt resource value: 0x7f0b002f
+			public const int status_bar_latest_event_content = 2131427375;
 			
 			// aapt resource value: 0x7f0b0009
 			public const int terrain = 2131427337;
@@ -631,20 +640,20 @@ namespace OpenCV.SDKDemo
 			// aapt resource value: 0x7f0b0003
 			public const int text2 = 2131427331;
 			
-			// aapt resource value: 0x7f0b0032
-			public const int time = 2131427378;
+			// aapt resource value: 0x7f0b0035
+			public const int time = 2131427381;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int title = 2131427332;
 			
-			// aapt resource value: 0x7f0b003b
-			public const int tutorial2_activity_surface_view = 2131427387;
+			// aapt resource value: 0x7f0b003e
+			public const int tutorial2_activity_surface_view = 2131427390;
 			
-			// aapt resource value: 0x7f0b003c
-			public const int tutorial3_activity_java_surface_view = 2131427388;
+			// aapt resource value: 0x7f0b003f
+			public const int tutorial3_activity_java_surface_view = 2131427391;
 			
-			// aapt resource value: 0x7f0b0040
-			public const int undistortion = 2131427392;
+			// aapt resource value: 0x7f0b0043
+			public const int undistortion = 2131427395;
 			
 			// aapt resource value: 0x7f0b000e
 			public const int wide = 2131427342;

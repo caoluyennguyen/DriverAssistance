@@ -9,6 +9,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:entries="@array/maptype_arrays"/>
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/editStartPoint" />
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/editEndPoint" />
+	<Button
+		android:text="GO"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/button1" />
 <fragment 
     android:id="@+id/map"
     android:layout_width="match_parent"
